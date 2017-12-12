@@ -1,0 +1,65 @@
+
+{% extends 'trainer/base.html' %}
+{% block title %}All Elearnings{% endblock %}
+{% block elearnings_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'trainer:elearnings' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == 'favorite_elearning' %}class="active"{% endif %}><a href="{% url 'trainer:elearnings' 'favorite_elearning' %}">Favorites</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>E-Learning Title</th>
+                                <th>Description</th>
+                                <th>File</th>
+                                <th>Trainer</th>
+                                <th>Favorite</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for elearning in elearning_list %}
+                                <tr>
+                                    <td>{{ elearning.ltitle }}</td>
+                                    <td>{{ elearning.trainer.designation }}</td>
+                                    <td>
+                                        {{ elearning.lpicture }}
+
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'trainer:details' elearning.trainer.id %}">
+                                            <img src="{{ elearning.trainer.picture.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;" />
+                                        </a>
+                                        <a href="{% url 'trainer:details' elearning.trainer.id %}">{{ elearning.trainer.name }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'trainer:favorite_elearning' elearning.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if trainer.is_favorite %}active{% endif %}"></span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+

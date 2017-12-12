@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Genesis{% endblock %}</title>
+    {% load staticfiles %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'trainer/style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    {% comment %}<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>{% endcomment %}
+
+    <script src="{% static 'trainer/js/main.js' %}"></script>
+<script src="{% static 'trainer/js/country_state.js' %}"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <!-- Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'trainer:index' %}">Genesis</a>
+        </div>
+
+        <!-- Items -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="{% block trainers_active %}{% endblock %}"><a href="{% url 'trainer:index' %}"><span class="" aria-hidden="true"></span>&nbsp; Trainers</a></li>
+                <li class="{% block events_active %}{% endblock %}"><a href="{% url 'trainer:events' 'all' %}"><span class="" aria-hidden="true"></span>&nbsp; Events</a></li>
+                <li class="{% block webinars_active %}{% endblock %}"><a href="{% url 'trainer:webinars' 'all' %}"><span class="" aria-hidden="true"></span>&nbsp; Webinars</a></li>
+                <li class="{% block articles_active %}{% endblock %}"><a href="{% url 'trainer:articles' 'all' %}"><span class="" aria-hidden="true"></span>&nbsp; Articles</a></li>
+                <li class="{% block elearnings_active %}{% endblock %}"><a href="{% url 'trainer:elearnings' 'all' %}"><span class="" aria-hidden="true"></span>&nbsp; E-Learning</a></li>
+                <li class="{% block olocations_active %}{% endblock %}"><a href="{% url 'trainer:olocations' 'all' %}"><span class="" aria-hidden="true"></span>&nbsp; Outbound Location</a></li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'trainer:index' %}">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}">
+                </div>
+                <button type="submit" class="btn btn-default">Search</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              {% comment %} <li>
+                    <a href="{% url 'trainer:create_client' %}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Client
+                    </a>
+                </li>{% endcomment %}
+                <li>
+                    <a href="{% url 'trainer:logout_user' %}">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>

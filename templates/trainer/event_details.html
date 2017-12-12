@@ -1,0 +1,122 @@
+{% extends 'trainer/base.html' %}
+{% block body %}
+<div class="container-fluid events-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+
+
+                    <a href="{% url 'trainer:edetails' trainer.id event.id %}">
+                        {% if event.epicture %}
+                            <img src="{{ event.epicture.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ event.etitle }} <small>{{ event.ediscription }}</small></h1>
+                    <h2>{{ event.elocation }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <h2>Review this event</h2>
+              <form method="post" action="{% url 'trainer:review_details' trainer.id event.id %}">
+                        {% csrf_token %}
+                  <input type="hidden" name="trainer_id" value="{{ trainer.id }}" />
+                  <input type="hidden" name="event_id" value="{{ event.id }}" />
+                  <label for="review">Write review :</label>
+                  <input type="text" name="review" required><br><br>
+                  <label for="rating">Give rating :</label>
+                  <input type="text" name="rating" required><br>
+
+
+
+                  <button type="submit" class="btn btn-default btn-sm">Submit</button>
+
+              </form>
+<br>
+
+
+               <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Review</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Review</th>
+                            <th>Rating</th>
+                            <th>Action</th>
+                            <th>Comment</th>
+
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for eventreview in trainer.eventreview_set.all %}
+                            <tr>
+                                <td>{{ eventreview.review }}</td>
+                                <td>
+                                   {{ eventreview.rating }}
+                                </td>
+                                <td style="width: 300px">
+                                  <form method="post" action="{% url 'trainer:review_comment' trainer.id event.id eventreview.id %}">
+                                     {% csrf_token %}
+                                     <input type="hidden" name="trainer_id" value="{{ trainer.id }}" />
+                                     <input type="hidden" name="event_id" value="{{ event.id }}" />
+                                      <input type="hidden" name="eventreview_id" value="{{ eventreview.id }}" />
+
+                                      <textarea  rows="3" cols="30" name="comment" placeholder="write you comment" required></textarea><br><br>
+
+                                     <button type="submit" class="btn btn-default btn-sm">Submit</button>
+
+                                  </form>
+
+                                </td>
+
+                                <td>
+                                    {% for e in rev %}
+                                        {{ e.comment }}
+                                    {% endfor %}
+
+                                </td>
+
+
+
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'trainer/base.html' %}
+
+{% block body %}
+    <div class="container-fluid events-container">
+
+    <div class="row">
+    <div class="col-sm-12">
+          <form method="get">
+             {{ filter.form.as_p }}
+             <button type="submit">Search</button>
+          </form>
+          <ul>
+          {% for user in filter.qs %}
+          <li>{{ user.username }} - {{ user.email }}</li>
+          {% endfor %}
+          </ul>
+    </div>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,384 @@
+{% extends 'trainer/base.html' %}
+{% block body %}
+<div class="container-fluid events-container">
+
+    <div class="row">
+
+         <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+        <h2>Hitcount Info</h2>
+    <dl class="dl-horizontal">
+      <dt>Total Hits:</dt>
+      <dd>{{ hitcount.total_hits }}</dd>
+      <dt>The unique PK is:</dt>
+      <dd>{{ hitcount.pk }}</dd>
+      <dt>Hit counted?</dt>
+      <dd id="hit-counted">
+        <i id="hit-counted-value">{{ hitcount.hit_counted }}</i>
+      </dd>
+      <dt>Hit response:</dt>
+      <dd id="hit-response">{{ hitcount.hit_message }}</dd>
+
+    </dl>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'trainer:details' trainer.id %}">
+                        {% if trainer.picture %}
+                            <img src="{{ trainer.picture.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ trainer.name }} <small>{{ trainer.organisation }}</small></h1>
+                    <h2>{{ trainer.designation }}</h2>
+                    <p><strong>Profile completeness - {{ trainer.percentage_complete }}%</strong></p>
+                </div>
+            </div>
+         <h2>Reach trainer</h2>
+
+         <form method="post" action="{% url 'trainer:client_query' trainer.id %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="trainer_id" value="{{ trainer.id }}" />
+
+
+                  <label for="subject">Subject :</label>
+                  <input type="text" name="subject" required><br><br>
+                  <label for="message">Message :</label>
+                  <input type="text" name="message" required><br><br>
+
+
+
+                  <button type="submit" class="btn btn-default btn-sm">Submit</button>
+
+              </form>
+              <br><br>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'trainer:details' trainer.id %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'trainer:create_event' trainer.id %}">Add New Event</a></li>
+                <li role="presentation"><a href="{% url 'trainer:create_webinar' trainer.id %}">Add New Webinar</a></li>
+                <li role="presentation"><a href="{% url 'trainer:create_article' trainer.id %}">Add New Article</a></li>
+                <li role="presentation"><a href="{% url 'trainer:create_elearning' trainer.id %}">Add New E-Learning</a></li>
+                <li role="presentation"><a href="{% url 'trainer:create_olocation' trainer.id %}">Add New Location</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Event</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+
+                            <th>Location</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for event in trainer.event_set.all %}
+                            <tr>
+                                <td>{{ event.etitle }}</td>
+                                <td>
+                                   {{ event.edescription }}
+                                </td>
+
+                                 <td>
+                                    {{ event.elocation }}
+                                </td>
+                                <td>
+                                    {{ event.ecategory }}
+                                </td>
+
+                                <td>
+                                    <a href="{% url 'trainer:edetails' trainer.id event.id %}">View Details</a><br>
+                                    <a href="{% url 'trainer:event_update' trainer.id event.id %}">Edit</a><br>
+                                    <form action="{% url 'trainer:delete_event' trainer.id event.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="event_id" value="{{ event.id }}" />
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+             <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Webinar</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+
+                            <th>Cost</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for webinar in trainer.webinar_set.all %}
+                            <tr>
+                                <td>{{ webinar.wtitle }}</td>
+                                <td>
+                                   {{ webinar.wdescription }}
+                                </td>
+
+                                 <td>
+                                    {{ webinar.wcost }}
+                                </td>
+                                <td>
+                                    {{ webinar.wcategory }}
+                                </td>
+
+                                <td>
+                                    <a href="{% url 'trainer:wdetails' trainer.id webinar.id %}">View Details</a><br>
+                                   <a href="{% url 'trainer:webinar_update' trainer.id webinar.id %}">Edit</a>
+                                    <br>
+                                    <form action="{% url 'trainer:delete_webinar' trainer.id webinar.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="webinar_id" value="{{ webinar.id }}" />
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+             <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Article</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+
+
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for article in trainer.article_set.all %}
+                            <tr>
+                                <td>{{ article.atitle }}</td>
+                                <td>
+                                   {{ article.adiscription }}
+                                </td>
+
+
+                                <td>
+                                    {{ article.acategory }}
+                                </td>
+
+                                <td>
+                                    <a href="{% url 'trainer:adetails' trainer.id article.id %}">View Details</a><br>
+                                   <a href="{% url 'trainer:article_update' trainer.id article.id %}">Edit</a><br>
+                                    <form action="{% url 'trainer:delete_article' trainer.id article.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="article_id" value="{{ article.id }}" />
+                                        <button type="submit" >Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All E-Learning</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+
+
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for elearning in trainer.elearning_set.all %}
+                            <tr>
+                                <td>{{ elearning.ltitle }}</td>
+                                <td>
+                                   {{ elearning.ldiscription }}
+                                </td>
+
+
+                                <td>
+                                    {{ elearning.lcategory }}
+                                </td>
+
+                                <td>
+                                    <a href="{% url 'trainer:ldetails' trainer.id elearning.id %}">View Details</a><br>
+                                    <a href="{% url 'trainer:elearning_update' trainer.id elearning.id %}">Edit</a><br>
+                                    <form action="{% url 'trainer:delete_elearning' trainer.id elearning.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="elearning_id" value="{{ elearning.id }}" />
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Outbound Location</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+
+                            <th>Location</th>
+
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for olocation in trainer.olocation_set.all %}
+                            <tr>
+                                <td>{{ olocation.otitle }}</td>
+                                <td>
+                                   {{ olocation.odiscription }}
+                                </td>
+
+                                 <td>
+                                    {{ olocation.location }}
+                                </td>
+
+
+                                <td>
+                                    <a href="{% url 'trainer:odetails' trainer.id olocation.id %}">View Details</a><br>
+                                    <a href="{% url 'trainer:location_update' trainer.id olocation.id %}">Edit</a><br>
+                                    <form action="{% url 'trainer:delete_olocation' trainer.id olocation.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="olocation_id" value="{{ olocation.id }}" />
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+
+        <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All client message</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Cliet name</th>
+                            <th>subject</th>
+
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Action</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for eventquery in trainer.eventquery_set.all %}
+                            <tr>
+                                <td><p>prateek</p></td>
+                                <td>
+                                   {{ eventquery.subject }}
+                                </td>
+
+                                 <td>
+                                    {{ eventquery.message }}
+                                </td>
+                                <td>
+                                    {{ eventquery.equerydate }}
+                                </td>
+                            <td>
+                                    <a href="#">Reply</a><br>
+                                    <form action="{% url 'trainer:delete_query' trainer.id eventquery.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="eventquery_id" value="{{ eventquery.id }}" />
+                                        <button type="submit">Delete</button>
+                                </td>
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

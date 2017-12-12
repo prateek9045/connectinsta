@@ -1,0 +1,23 @@
+{% extends 'trainer/base.html' %}
+
+{% block body %}
+
+        <div class="container-fluid events-container">
+
+    <div class="row">
+    <div class="col-sm-12">
+    <div class="form-group">
+
+        <form method="get">
+             {{ filter.form.as_p }}
+
+             <button type="submit">Search</button>
+        </form>
+    </div>
+  <ul>
+  {% for webinar in filter.qs %}
+    <li>{{ webinar.wtitle }} - {{ webinar.wcategory }}</li>
+  {% endfor %}
+  </ul>
+    </div></div></div>
+{% endblock %}

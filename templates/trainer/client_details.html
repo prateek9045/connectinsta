@@ -1,0 +1,30 @@
+{% extends 'trainer/base.html' %}
+{% block body %}
+<div class="container-fluid events-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'trainer:client_details' client.id %}">
+                        {% if client.cpicture %}
+                            <img src="{{ client.cpicture.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ client.cname }} <small>{{ client.corganisation }}</small></h1>
+                    <h2>{{ client.cdesignation }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+
+
+    </div>
+
+</div>
+{% endblock %}

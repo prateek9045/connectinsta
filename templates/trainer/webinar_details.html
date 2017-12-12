@@ -1,0 +1,116 @@
+{% extends 'trainer/base.html' %}
+{% block body %}
+<div class="container-fluid events-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'trainer:wdetails' trainer.id webinar.id %}">
+                        {% if webinar.wpicture %}
+                            <img src="{{ webinar.wpicture.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ webinar.wtitle }} <small>{{ webinar.wdiscription }}</small></h1>
+                    <h2>{{ webinar.wlocation }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+                  <h2>Review this webinar</h2>
+              <form method="post" action="{% url 'trainer:review_webinar' trainer.id webinar.id %}">
+                        {% csrf_token %}
+                  <input type="hidden" name="trainer_id" value="{{ trainer.id }}" />
+                  <input type="hidden" name="webinar_id" value="{{ webinar.id }}" />
+                  <label for="review">Write review :</label>
+                  <input type="text" name="review" required><br><br>
+                  <label for="rating">Give rating :</label>
+                  <input type="text" name="rating" required><br>
+
+
+
+                  <button type="submit" class="btn btn-default btn-sm">Submit</button>
+
+              </form>
+<br>
+
+
+               <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Review</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Review</th>
+                            <th>Rating</th>
+                            <th>Action</th>
+                            <th>Comment</th>
+
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for webinarreview in trainer.webinarreview_set.all %}
+                            <tr>
+                                <td>{{ webinarreview.review }}</td>
+                                <td>
+                                   {{ webinarreview.rating }}
+                                </td>
+                                <td style="width: 300px">
+                                  <form method="post" action="{% url 'trainer:comment_webinar' trainer.id webinar.id webinarreview.id %}">
+                                     {% csrf_token %}
+                                     <input type="hidden" name="trainer_id" value="{{ trainer.id }}" />
+                                     <input type="hidden" name="webinar_id" value="{{ webinar.id }}" />
+                                      <input type="hidden" name="webinarreview_id" value="{{ webinarreview.id }}" />
+
+                                      <textarea  rows="3" cols="30" name="comment" placeholder="write you comment" required></textarea><br><br>
+
+                                     <button type="submit" class="btn btn-default btn-sm">Submit</button>
+
+                                  </form>
+
+                                </td>
+
+                           <td>
+
+                                </td>
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

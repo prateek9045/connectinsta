@@ -1,0 +1,65 @@
+
+{% extends 'trainer/base.html' %}
+{% block title %}All Outbound Locations{% endblock %}
+{% block olocations_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'trainer:olocations' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == 'favorite_olocation' %}class="active"{% endif %}><a href="{% url 'trainer:olocations' 'favorite_olocation' %}">Favorites</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Location Title</th>
+                                <th>desc</th>
+                                <th>File</th>
+                                <th>Trainer</th>
+                                <th>Favorite</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for olocation in olocation_list %}
+                                <tr>
+                                    <td>{{ olocation.otitle }}</td>
+                                    <td>{{ olocation.trainer.designation }}</td>
+                                    <td>
+                                        {{ olocation.opicture }}
+
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'trainer:details' olocation.trainer.id %}">
+                                            <img src="{{ olocation.trainer.picture.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;" />
+                                        </a>
+                                        <a href="{% url 'trainer:details' olocation.trainer.id %}">{{ olocation.trainer.name }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'trainer:favorite_olocation' olocation.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if trainer.is_favorite %}active{% endif %}"></span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+

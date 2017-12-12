@@ -1,0 +1,65 @@
+
+{% extends 'trainer/base.html' %}
+{% block title %}All Webinars{% endblock %}
+{% block webinars_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'trainer:webinars' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == 'favorite_webinar' %}class="active"{% endif %}><a href="{% url 'trainer:webinars' 'favorite_webinar' %}">Favorites</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Webinar Title</th>
+                                <th>Designation</th>
+                                <th>Picture</th>
+                                <th>Trainer</th>
+                                <th>Favorite</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for webinar in webinar_list %}
+                                <tr>
+                                    <td>{{ webinar.wtitle }}</td>
+                                    <td>{{ webinar.trainer.designation }}</td>
+                                    <td>
+                                        {{ webinar.wpicture }}
+
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'trainer:details' webinar.trainer.id %}">
+                                            <img src="{{ webinar.trainer.picture.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;" />
+                                        </a>
+                                        <a href="{% url 'trainer:details' webinar.trainer.id %}">{{ webinar.trainer.name }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'trainer:favorite_webinar' webinar.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if trainer.is_favorite %}active{% endif %}"></span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
