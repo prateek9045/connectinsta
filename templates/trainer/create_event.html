@@ -40,6 +40,10 @@
                     {% endif %}
                     <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
+                       <script>
+                           var dateControl = document.querySelector('input[type="datetime-local"]');
+                           dateControl.value = '2017-06-01T08:30';
+                       </script>
                         <input type="hidden" name="trainer" value="{{ trainer }}">
                         {% include 'trainer/form_template.html' %}
                         <div class="form-group">

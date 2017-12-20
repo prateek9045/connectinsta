@@ -17,11 +17,17 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from trainer import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
     url(r'^', include('trainer.urls')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^home/', views.Home, name='Home'),
+    url(r'^Success/', views.success, name='success'),
+    url(r'^Failure/', views.failure, name='failure'),
+
     url(r'^ratings/', include('star_ratings.urls', namespace='ratings', app_name='ratings')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'hitcount/', include('hitcount.urls', namespace='hitcount')),

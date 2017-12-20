@@ -33,8 +33,8 @@ class EventForm(forms.ModelForm):
 
         fields = ['etitle', 'ecategory', 'esubcategory', 'eduration', 'edelivery', 'eventstart', 'eventend', 'edescription', 'ecost', 'elocation', 'efacebook', 'ewebsite', 'epicture']
         widgets = {
-                    'eventstart': DateTimeInput(attrs={'type': 'datetime-local'}),
-                    'eventend': DateTimeInput(attrs={'type': 'datetime-local'}),
+                    'eventstart': DateTimeInput(attrs={'format': '%Y-%m-%d %H:%M:%S','value':'yyyy-mm-dd hh:mm:ss'}),
+                    'eventend': DateTimeInput(attrs={'format': '%Y-%m-%d %H:%M:%S','value':'yyyy-mm-dd hh:mm:ss'}),
         }
 
 class WebinarForm(forms.ModelForm):
@@ -44,8 +44,8 @@ class WebinarForm(forms.ModelForm):
 
         fields = ['wtitle', 'wcategory', 'webinarstart', 'webinarend', 'wdescription', 'wcost', 'wwebsite', 'wpicture']
         widgets = {
-            'webinarstart': DateTimeInput(attrs={'type': 'datetime-local'}),
-            'webinarend': DateTimeInput(attrs={'type': 'datetime-local'}),
+            'webinarstart': DateTimeInput(attrs={'format': '%Y-%m-%d %H:%M:%S','value':'yyyy-mm-dd hh:mm:ss'}),
+            'webinarend': DateTimeInput(attrs={'format': '%Y-%m-%d %H:%M:%S','value':'yyyy-mm-dd hh:mm:ss'}),
         }
 
 
