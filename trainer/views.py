@@ -4,8 +4,10 @@ from django.views.generic import DetailView, TemplateView
 from hitcount.views import HitCountDetailView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.shortcuts import render, render_to_response
+from django.views.decorators.csrf import requires_csrf_token
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context, Template,RequestContext
@@ -114,6 +116,7 @@ def create_event(request, trainer_id):
             return render(request, 'trainer/create_event.html', context)
 
         event.save()
+        send_mail('new event created', 'congratulations', 'prateek@connectinsta.com', ['prateek.sinha25@outlook.com'], fail_silently=False)
         return render(request, 'trainer/details.html', {'trainer': trainer})
     context = {
         'trainer': trainer,
@@ -966,9 +969,10 @@ def Home(request):
 
 @csrf_protect
 @csrf_exempt
+@requires_csrf_token
 def success(request):
 	c = {}
-    	c.update(csrf(request))
+        c.update(csrf(request))
 	status=request.POST["status"]
 	firstname=request.POST["firstname"]
 	amount=request.POST["amount"]
@@ -995,6 +999,7 @@ def success(request):
 
 @csrf_protect
 @csrf_exempt
+@requires_csrf_token
 def failure(request):
 	c = {}
     	c.update(csrf(request))
@@ -1019,7 +1024,7 @@ def failure(request):
 		print "Thank You. Your order status is ", status
 		print "Your Transaction ID for this transaction is ",txnid
 		print "We have received a payment of Rs. ", amount ,". Your order will soon be shipped."
- 	return render_to_response("trainer/Failure.html",context={'c':c})
+ 	return render_to_response("trainer/Failure.html",c)
 
 
 

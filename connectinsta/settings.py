@@ -165,3 +165,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+EMAIL_USE_SSl = True
+EMAIL_HOST = 'connectinsta.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'prateek@connectinsta.com'
+EMAIL_HOST_PASSWORD = 'prateek@connectinsta'
