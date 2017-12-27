@@ -346,24 +346,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for eventquery in trainer.eventquery_set.all %}
+                        {% for clientquery in trainer.clientquery_set.all %}
                             <tr>
                                 <td><p>prateek</p></td>
                                 <td>
-                                   {{ eventquery.subject }}
+                                   {{ clientquery.subject }}
                                 </td>
 
                                  <td>
-                                    {{ eventquery.message }}
+                                    {{ clientquery.message }}
                                 </td>
                                 <td>
-                                    {{ eventquery.equerydate }}
+                                    {{ clientquery.equerydate }}
                                 </td>
                             <td>
                                     <a href="#">Reply</a><br>
-                                    <form action="{% url 'trainer:delete_query' trainer.id eventquery.id %}" method="post" style="display: inline;">
+                                    <form action="{% url 'trainer:delete_query' trainer.id clientquery.id %}" method="post" style="display: inline;">
                                         {% csrf_token %}
-                                        <input type="hidden" name="eventquery_id" value="{{ eventquery.id }}" />
+                                        <input type="hidden" name="clientquery_id" value="{{ clientquery.id }}" />
                                         <button type="submit">Delete</button>
                                 </td>
 

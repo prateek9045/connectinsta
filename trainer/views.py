@@ -24,7 +24,7 @@ from .filters import UserFilter, EventFilter, TrainerFilter, WebinarFilter, Elea
 from django.views.generic.edit import UpdateView
 from django.core.urlresolvers import reverse_lazy
 from .forms import TrainerForm, EventForm, WebinarForm, ArticleForm, UserForm, ElearningForm, OlocationForm, ClientForm
-from .models import Trainer, Event, Webinar, Article, Elearning, Olocation, Client, Eventreview, Eventcomment, Eventquery, Webinarcomment, Webinarreview, Olocationreview, Olocationcomment, Elearningreview, Elearningcomment
+from .models import Trainer, Event, Webinar, Article, Elearning, Olocation, Client, Eventreview, Eventcomment, Clientquery, Webinarcomment, Webinarreview, Olocationreview, Olocationcomment, Elearningreview, Elearningcomment
 
 
 IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
@@ -792,14 +792,14 @@ def client_query(request,trainer_id):
     trainer = get_object_or_404(Trainer, pk=trainer_id)
     subject = request.POST.get("subject")
     message = request.POST.get("message")
-    Eventquery.objects.create(subject=subject,message=message,trainer_id=trainer_id)
+    Clientquery.objects.create(subject=subject,message=message,trainer_id=trainer_id)
     return render(request, 'trainer/details.html', {'trainer':trainer})
 
 
 
 def delete_query(request, trainer_id, eventquery_id):
     trainer = get_object_or_404(Trainer, pk=trainer_id)
-    eventquery = Eventquery.objects.get(pk=eventquery_id)
+    eventquery = Clientquery.objects.get(pk=eventquery_id)
     eventquery.delete()
     return render(request, 'trainer/details.html', {'trainer': trainer})
 

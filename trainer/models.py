@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import Permission, User
 from django.db import models
 from django_countries.fields import CountryField
-from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.contenttypes.fields import GenericRelation
 from hitcount.models import HitCount, HitCountMixin
 
@@ -38,7 +37,6 @@ class Trainer(models.Model, HitCountMixin):
     )
     category = models.CharField(max_length=100, null=True, verbose_name='Category', choices=TCATEGORY_CHOICES, default='', blank=False)
     country = CountryField(blank_label='(select country)', null=True)
-
     picture = models.FileField(verbose_name='Upload Image', blank=True)
     joindate = models.DateTimeField(auto_now=True, blank=False)
     is_favorite = models.BooleanField(default=False)
@@ -99,7 +97,6 @@ class Client(models.Model):
     )
     ccategory = models.CharField(max_length=100, null=True, verbose_name='Category', choices=CCATEGORY_CHOICES, default='', blank=False)
     country = CountryField(blank_label='(select country)', null=True)
-
     cpicture = models.FileField(verbose_name='Upload Image')
     cjoindate = models.DateTimeField(auto_now=True, blank=False)
 
@@ -169,13 +166,8 @@ class Event(models.Model):
 
     )
     edelivery = models.CharField(max_length=20, choices=EDELIVERY_CHOICES, verbose_name='Event Delivery', default=0, blank=False)
-
-
-
     eventstart = models.DateTimeField(null=True, blank=True, verbose_name='Start Date & Time')
     eventend = models.DateTimeField(null=True, blank=True, verbose_name='End Date & TIme')
-
-
     edescription = models.CharField(max_length=500, verbose_name='Description', blank=False, default='')
     ecost = models.IntegerField(default=0, verbose_name='Event Cost')
     elocation = models.CharField(max_length=250, verbose_name='Location', blank=False)
@@ -215,16 +207,13 @@ class Webinar(models.Model):
         ('HUMAN RESOURCES', 'human resources'),
         ('MANUFACTURING', 'manufacturing'),
     )
-    wcategory = models.CharField(max_length=100, verbose_name='Category', choices=WCATEGORY_CHOICES, default=0,
-                                 blank=False)
-
+    wcategory = models.CharField(max_length=100, verbose_name='Category', choices=WCATEGORY_CHOICES, default=0,blank=False)
     webinarstart = models.DateTimeField(null=True, blank=True, verbose_name='Start Date & Time')
     webinarend = models.DateTimeField(null=True, blank=True, verbose_name='End Date & TIme')
     wdescription = models.CharField(max_length=500, verbose_name='Description', null=True)
     wcost = models.IntegerField(default=0, verbose_name='Webinar Cost')
     wwebsite = models.CharField(max_length=300, verbose_name='Website Link', default='')
     wpublish = models.DateTimeField(auto_now=True, blank=False)
-
     wpicture = models.FileField(verbose_name='Upload Image')
     is_favorite = models.BooleanField(default=False)
 
@@ -239,7 +228,6 @@ class Article(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
     atitle = models.CharField(max_length=250,verbose_name='Title')
     adiscription = models.CharField(max_length=500,verbose_name='Description')
-
     ACATEGORY_CHOICES = (
         ('LEARNING AND DEVELOPMENT', 'learning and development'),
         ('CONFERENCES', 'conference'),
@@ -260,8 +248,7 @@ class Article(models.Model):
         ('HUMAN RESOURCES', 'human resources'),
         ('MANUFACTURING', 'manufacturing'),
     )
-    acategory = models.CharField(max_length=100, verbose_name='Category', choices=ACATEGORY_CHOICES, default=0,
-                                 blank=False)
+    acategory = models.CharField(max_length=100, verbose_name='Category', choices=ACATEGORY_CHOICES, default=0, blank=False)
     apicture = models.FileField(verbose_name='Upload Image')
     apublish = models.DateTimeField(auto_now=True, blank=False)
     is_favorite = models.BooleanField(default=False)
@@ -296,8 +283,7 @@ class Elearning(models.Model):
         ('HUMAN RESOURCES', 'human resources'),
         ('MANUFACTURING', 'manufacturing'),
     )
-    lcategory = models.CharField(max_length=100, verbose_name='Category', choices=LCATEGORY_CHOICES, default=0,
-                                 blank=False)
+    lcategory = models.CharField(max_length=100, verbose_name='Category', choices=LCATEGORY_CHOICES, default=0, blank=False)
     lpicture = models.FileField(verbose_name='Upload Image')
     lwebsite = models.CharField(max_length=300, verbose_name='Elearning platform Link', default='')
     lpublish = models.DateTimeField(auto_now=True, blank=False)
@@ -359,9 +345,8 @@ class Eventcomment(models.Model):
 
 
 
-class Eventquery(models.Model):
+class Clientquery(models.Model):
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE)
-
     subject = models.CharField(max_length=100, verbose_name='Write Subject', default=1, blank=False)
     message = models.CharField(max_length=1000, verbose_name='Write Message', blank=False)
     equerydate = models.DateTimeField(auto_now=True, blank=False)
