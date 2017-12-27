@@ -92,6 +92,7 @@ def create_client(request):
 def create_event(request, trainer_id):
     form = EventForm(request.POST or None, request.FILES or None)
     trainer = get_object_or_404(Trainer, pk=trainer_id)
+    event_email = request.user.email
     if form.is_valid():
         trainers_events = trainer.event_set.all()
         for s in trainers_events:
@@ -116,7 +117,7 @@ def create_event(request, trainer_id):
             return render(request, 'trainer/create_event.html', context)
 
         event.save()
-        send_mail('new event created', 'congratulations', 'prateek@connectinsta.com', ['prateek.sinha25@outlook.com'], fail_silently=False)
+        send_mail('Connectinsta - New Event Created', 'congratulations', 'prateek@connectinsta.com', [event_email], fail_silently=False)
         return render(request, 'trainer/details.html', {'trainer': trainer})
     context = {
         'trainer': trainer,
@@ -131,6 +132,7 @@ def create_event(request, trainer_id):
 def create_webinar(request, trainer_id):
     form = WebinarForm(request.POST or None, request.FILES or None)
     trainer = get_object_or_404(Trainer, pk=trainer_id)
+    webinar_email = request.user.email
     if form.is_valid():
         trainers_webinars = trainer.webinar_set.all()
         for s in trainers_webinars:
@@ -155,6 +157,7 @@ def create_webinar(request, trainer_id):
             return render(request, 'trainer/create_webinar.html', context)
 
         webinar.save()
+        send_mail('Connectinsta - New Webinar Created', 'congratulations', 'prateek@connectinsta.com', [webinar_email], fail_silently=False)
         return render(request, 'trainer/details.html', {'trainer': trainer})
     context = {
         'trainer': trainer,
@@ -168,6 +171,7 @@ def create_webinar(request, trainer_id):
 def create_article(request, trainer_id):
     form = ArticleForm(request.POST or None, request.FILES or None)
     trainer = get_object_or_404(Trainer, pk=trainer_id)
+    article_email = request.user.email
     if form.is_valid():
         trainers_articles = trainer.article_set.all()
         for s in trainers_articles:
@@ -192,6 +196,7 @@ def create_article(request, trainer_id):
             return render(request, 'trainer/create_article.html', context)
 
         article.save()
+        send_mail('Connectinsta - New Article Created', 'congratulations', 'prateek@connectinsta.com', [article_email], fail_silently=False)
         return render(request, 'trainer/details.html', {'trainer': trainer})
     context = {
         'trainer': trainer,
@@ -206,6 +211,7 @@ def create_article(request, trainer_id):
 def create_elearning(request, trainer_id):
     form = ElearningForm(request.POST or None, request.FILES or None)
     trainer = get_object_or_404(Trainer, pk=trainer_id)
+    elearning_email = request.user.email
     if form.is_valid():
         trainers_elearnings = trainer.elearning_set.all()
         for s in trainers_elearnings:
@@ -230,6 +236,7 @@ def create_elearning(request, trainer_id):
             return render(request, 'trainer/create_elearning.html', context)
 
         elearning.save()
+        send_mail('Connectinsta - New Elearning Program Created', 'congratulations', 'prateek@connectinsta.com', [elearning_email], fail_silently=False)
         return render(request, 'trainer/details.html', {'trainer': trainer})
     context = {
         'trainer': trainer,
@@ -243,6 +250,7 @@ def create_elearning(request, trainer_id):
 def create_olocation(request, trainer_id):
     form = OlocationForm(request.POST or None, request.FILES or None)
     trainer = get_object_or_404(Trainer, pk=trainer_id)
+    olocation_email = request.user.email
     if form.is_valid():
         trainers_olocations = trainer.olocation_set.all()
         for s in trainers_olocations:
@@ -267,6 +275,7 @@ def create_olocation(request, trainer_id):
             return render(request, 'trainer/create_olocation.html', context)
 
         olocation.save()
+        send_mail('Connectinsta - New Outbound Location Created', 'congratulations', 'prateek@connectinsta.com', [olocation_email], fail_silently=False)
         return render(request, 'trainer/details.html', {'trainer': trainer})
     context = {
         'trainer': trainer,
