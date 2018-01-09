@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import Trainer, Event, Webinar, Article, Elearning, Olocation, Client
+from .models import Trainer, Event, Webinar, Elearning, Olocation, Client
 import django_filters
 from django.forms.widgets import DateTimeInput
 from django_countries.widgets import CountrySelectWidget

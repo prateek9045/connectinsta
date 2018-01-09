@@ -27,7 +27,6 @@ urlpatterns = [
     url(r'^home/', views.Home, name='Home'),
     url(r'^Success/', views.success, name='success'),
     url(r'^Failure/', views.failure, name='failure'),
-
     url(r'^ratings/', include('star_ratings.urls', namespace='ratings', app_name='ratings')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'hitcount/', include('hitcount.urls', namespace='hitcount')),
