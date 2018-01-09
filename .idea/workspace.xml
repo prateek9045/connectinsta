@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6819e6c5-c304-4683-8e2c-b5169d2a8d0c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connectinsta/settings.py" afterPath="$PROJECT_DIR$/connectinsta/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/connectinsta/urls.py" afterPath="$PROJECT_DIR$/connectinsta/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trainer/filters.py" afterPath="$PROJECT_DIR$/trainer/filters.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,8 +30,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/connectinsta/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1982">
-              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state relative-caret-position="143">
+              <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -68,7 +65,7 @@
         <entry file="file://$PROJECT_DIR$/trainer/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="947" column="29" lean-forward="true" selection-start-line="947" selection-start-column="29" selection-end-line="947" selection-end-column="29" />
+              <caret line="947" column="29" lean-forward="false" selection-start-line="947" selection-start-column="29" selection-end-line="947" selection-end-column="29" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -582,7 +579,14 @@
       <option name="project" value="LOCAL" />
       <updated>1514363592631</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="allowed host">
+      <created>1515494106786</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1515494106786</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -647,7 +651,8 @@
     <MESSAGE value="payment gateway" />
     <MESSAGE value="sending email" />
     <MESSAGE value="eventquery rename" />
-    <option name="LAST_COMMIT_MESSAGE" value="eventquery rename" />
+    <MESSAGE value="allowed host" />
+    <option name="LAST_COMMIT_MESSAGE" value="allowed host" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -965,7 +970,7 @@
     <entry file="file://$PROJECT_DIR$/trainer/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="947" column="29" lean-forward="true" selection-start-line="947" selection-start-column="29" selection-end-line="947" selection-end-column="29" />
+          <caret line="947" column="29" lean-forward="false" selection-start-line="947" selection-start-column="29" selection-end-line="947" selection-end-column="29" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -974,8 +979,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/connectinsta/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1982">
-          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        <state relative-caret-position="143">
+          <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
           <folding />
         </state>
       </provider>
